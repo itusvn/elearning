@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.db.models.query import QuerySet
 from django.core.exceptions import ImproperlyConfigured
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from django.views.generic import ListView
 
 class BasicListView(View):
     model = None
@@ -17,6 +20,22 @@ class BasicListView(View):
         return render(request, self.template_name, context)
     
     def post(self, request, *args, **kwargs):
+        if self.model:
+            objects = self.queryset.all()
+            context = {"object_list": objects}
+        else:
+            context = {"object_list": None}
+        return render(request, self.template_name, context)
+    
+    def delete(self, request, *args, **kwargs):
+        if self.model:
+            objects = self.queryset.all()
+            context = {"object_list": objects}
+        else:
+            context = {"object_list": None}
+        return render(request, self.template_name, context)
+    
+    def put(self, request, *args, **kwargs):
         if self.model:
             objects = self.queryset.all()
             context = {"object_list": objects}
@@ -48,3 +67,20 @@ class BasicListView(View):
 
     def get_ordering(self):
         pass
+
+    def paginate_queryset(serializer, request, queryset, page, limit=20):
+        """Build a paginated response for a given queryset."""
+        paginator = Paginator(queryset, 20)
+        try:
+            tracks = paginator.page(page)
+        except PageNotAnInteger:
+            tracks = paginator.page(1)
+        except EmptyPage:
+            tracks = paginator.page(paginator.num_pages)
+
+        serializer_context = {'request': request}
+        serializer_obj = serializer(
+            tracks, context=serializer_context
+        )
+
+        return serializer_obj.data

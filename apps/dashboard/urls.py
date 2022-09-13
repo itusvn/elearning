@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
 from . import views_table
+from . import views
 
 app_name = 'dashboard'
 
