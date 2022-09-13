@@ -3,7 +3,7 @@ from django.views.generic import ListView
 
 class TableView(ListView):
     model = None
-    template_name = 'dashboard/tables.html'
+    template_name = 'basebackend/tables.html'
 
     def get_queryset(self):
         if self.model:       
