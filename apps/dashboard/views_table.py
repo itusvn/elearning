@@ -1,6 +1,11 @@
 # Create your views here.
+from django.views.generic import ListView
 
-from apps.dashboard.base.basiclistview import BasicListView
-class TableView(BasicListView):
+class TableView(ListView):
     model = None
     template_name = 'dashboard/tables.html'
+
+    def get_queryset(self):
+        if self.model:       
+            return self.model.objects.order_by('-population')[0:self.kwargs['num_of_countries']]
+        return
