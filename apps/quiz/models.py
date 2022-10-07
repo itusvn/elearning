@@ -28,7 +28,6 @@ class Question(models.Model):
     text = models.TextField('Question')
     question_type = models.TextField('Question Type')
 
-
     def __str__(self):
         return self.text
 
