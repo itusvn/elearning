@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from ipware import get_client_ip
 from apps.blackList.models import BlackList
+from ipware import get_client_ip
 
 # Create your views here.
 def mylogin(request):

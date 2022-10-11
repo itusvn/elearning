@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'apps.basebackend',
     'apps.dashboard',
     'apps.quiz',
+    'apps.authenticate',
+    'apps.blackList',
 ]
 
 MIDDLEWARE = [
