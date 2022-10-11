@@ -5,5 +5,5 @@ app_name = 'authenticate'
 
 urlpatterns = [
    path('accounts/', include('django.contrib.auth.urls')),
-   path('signup/', views.signup, name='signup')),
+   path('login/', views.mylogin, name='login'),
 ]
